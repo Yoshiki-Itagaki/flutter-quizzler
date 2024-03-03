@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'question.dart';
+
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -26,16 +28,40 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  // TODO : insert this list to the row later
   List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
+    // Icon(
+    //   Icons.check,
+    //   color: Colors.green,
+    // ),
+    // Icon(
+    //   Icons.close,
+    //   color: Colors.red,
+    // ),
   ];
+
+  // List<String> questions = [
+  //   //   'You can lead a cow down stairs but not up stairs.',
+  //   //   'Approximately one quarter of human bones are in the feet.',
+  //   //   'A slug\'s blood is green.',
+  //   // ];
+  //   //
+  //   // List<bool> answers = [
+  //   //   false,
+  //   //   true,
+  //   //   true,
+  //   // ];
+  //   //
+  //   // Question q1 =
+  //   //     Question('You can lead a cow down stairs but not up stairs.', false);
+
+  List<Question> questionBank = [
+    Question('You can lead a cow down stairs but not up stairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('A slug\'s blood is green.', true),
+  ];
+
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -76,10 +102,29 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                // TODO : add the icon
+                // setState(() {
+                //   scoreKeeper.add(
+                //     Icon(Icons.check, color: Colors.green),
+                //   );
+                // });
+
+                // TODO : change the index number
+
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
+
+                if (correctAnswer == true) {
+                  print('You got it right!');
+                } else {
+                  print('You got it wrong!');
+                }
+
                 setState(() {
-                  scoreKeeper.add(
-                    Icon(Icons.check, color: Colors.green),
-                  );
+                  questionNumber++;
+                  if (questionNumber > questionBank.length - 1) {
+                    questionNumber = 2;
+                  }
                 });
               },
             ),
@@ -102,17 +147,46 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                // TODO : add the icon
+                // setState(() {
+                //   scoreKeeper.add(
+                //     Icon(Icons.close, color: Colors.red),
+                //   );
+                // });
+
+                // TODO : change the index number
+
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
+
+                if (correctAnswer == false) {
+                  print('You got it right!');
+                } else {
+                  print('You got it wrong!');
+                }
+
                 setState(() {
-                  scoreKeeper.add(
-                    Icon(Icons.close, color: Colors.red),
-                  );
+                  questionNumber++;
+                  if (questionNumber > questionBank.length - 1) {
+                    questionNumber = 2;
+                  }
                 });
               },
             ),
           ),
         ),
         Row(
-          children: scoreKeeper,
+          // children: scoreKeeper,
+          children: [
+            Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          ],
         )
       ],
     );
