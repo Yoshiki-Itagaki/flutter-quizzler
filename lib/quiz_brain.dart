@@ -37,6 +37,18 @@ class QuizBrain {
     }
   }
 
+  bool isFinished() {
+    if (_questionNumber == _questionBank.length - 1) {
+      reset();
+      return true;
+    }
+    return false;
+  }
+
+  void reset() {
+    _questionNumber = 0;
+  }
+
   String getQuestionText() {
     return _questionBank[_questionNumber].questionText;
   }
